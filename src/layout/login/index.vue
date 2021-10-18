@@ -1,21 +1,21 @@
+<!--
+ * @Author: your name
+ * @Date: 2021-10-14 13:37:10
+ * @LastEditTime: 2021-10-15 11:56:37
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: \vp-admin\src\layout\login\index.vue
+-->
 <template>
   <div class="login_container">
+    <!-- login - form -->
     <div class="login_form">
-      <el-input v-model="username" placeholder="用户名">
-        <template #prefix>
-          <el-icon>
-            <avatar />
-          </el-icon>
-        </template>
-      </el-input>
-      <el-input v-model="password" placeholder="密码" show-password>
-        <template #prefix>
-          <el-icon>
-            <lock />
-          </el-icon>
-        </template>
-      </el-input>
-      <el-button type="primary" @click="handleLogin">登录</el-button>
+      <login-form />
+    </div>
+
+    <!-- copyright -->
+    <div class="copyright_container">
+      <copyright />
     </div>
   </div>
 </template>
@@ -23,20 +23,26 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+// components
+import { LoginForm, Copyright } from "./components";
 
 export default defineComponent({
+  components: {
+    LoginForm,
+    Copyright,
+  },
   setup() {
     const router = useRouter();
     let name = ref("小卡车");
     const handleLogin = () => {
       router.push({
-      name: "Index"
-      })
-    }
+        name: "Index",
+      });
+    };
 
     return {
       name,
-      handleLogin
+      handleLogin,
     };
   },
 });
@@ -61,6 +67,7 @@ export default defineComponent({
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    z-index: 20;
 
     .el-input {
       // margin: 30x 0d;
@@ -70,6 +77,15 @@ export default defineComponent({
     .el-button {
       width: 100%;
     }
+  }
+
+  .copyright_container {
+    position: absolute;
+    bottom: 50px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
   }
 }
 </style>

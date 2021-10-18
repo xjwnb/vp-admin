@@ -1,5 +1,15 @@
+/*
+ * @Author: your name
+ * @Date: 2021-10-14 11:16:16
+ * @LastEditTime: 2021-10-15 13:55:53
+ * @LastEditors: your name
+ * @Description: In User Settings Edit
+ * @FilePath: \vp-admin\src\router\index.ts
+ */
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
 import Home from "../views/Home.vue";
+// systemlayout
+import SystemLayout from "../layout/systemLayout/index.vue";
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -18,8 +28,14 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: "/index",
-    name: "Index",
-    component: () => import(/* webpackChunkName: "Index" */ "../views/index/index.vue")
+    component: SystemLayout,
+    children: [
+      {
+        path: "",
+        name: "Index",
+        component: () => import(/* webpackChunkName: "Index" */ "../views/index/index.vue")
+      }
+    ]
   },
   {
     path: "/login",
