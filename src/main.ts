@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-10-14 11:16:16
- * @LastEditTime: 2021-10-14 16:36:53
+ * @LastEditTime: 2021-10-18 09:34:40
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vp-admin\src\main.ts
@@ -20,5 +20,6 @@ for (let iconName in EleIcons) {
   app.component(iconName, (EleIcons as any)[iconName]);
 }
 
+console.log("main.ts", process.env.NODE_ENV, process.env.VUE_APP_BASE_API);
 
 app.use(store).use(router).use(ElementPlus).mount("#app");
