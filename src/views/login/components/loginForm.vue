@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-10-15 08:23:59
- * @LastEditTime: 2021-10-15 13:34:24
+ * @LastEditTime: 2021-10-19 16:55:47
  * @LastEditors: Please set LastEditors
  * @Description: 登录表单
  * @FilePath: \vp-admin\src\layout\login\components\loginForm.vue
@@ -31,13 +31,23 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref, DefineComponent, nextTick } from "vue";
+import {
+  defineComponent,
+  reactive,
+  ref,
+  DefineComponent,
+  nextTick,
+  toRef,
+} from "vue";
 // instance
 import { loginRules, loginForm } from "./interface";
 import { useRouter } from "vue-router";
+import { getRouters } from "@/api/menu";
+import { useStore } from "vuex";
 
 export default defineComponent({
   setup() {
+    const store = useStore();
     const router = useRouter();
     const loginForm = ref<any>();
     const ruleForm: loginForm = reactive({
@@ -53,16 +63,28 @@ export default defineComponent({
     });
 
     /**
+     * 生成路由 vuex
+     */
+    const GenerateRoutesAction = () => store.dispatch("GenerateRoutes");
+
+    /**
      * 提交表单
      */
     async function submitForm() {
       try {
         await loginForm.value?.validate("blur");
+        // 菜单
+        // let result = await getRouters();
+        // console.log(result);
+        const routerResult = await GenerateRoutesAction();
 
+        console.log("....", routerResult);
         router.push({
           name: "Index",
         });
-      } catch (error) {}
+      } catch (error) {
+        console.log(error);
+      }
     }
 
     /**

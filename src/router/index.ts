@@ -1,12 +1,13 @@
 /*
  * @Author: your name
  * @Date: 2021-10-14 11:16:16
- * @LastEditTime: 2021-10-18 13:50:50
+ * @LastEditTime: 2021-10-19 17:22:16
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \vp-admin\src\router\index.ts
  */
 import { createRouter, createWebHashHistory, RouteRecordRaw } from "vue-router";
+import { Component } from "vue";
 import Home from "../views/Home.vue";
 // systemlayout
 import SystemLayout from "../layout/systemLayout/index.vue";
@@ -29,10 +30,31 @@ import SystemLayout from "../layout/systemLayout/index.vue";
   }
  */
 
-const routes: Array<RouteRecordRaw> = [
+interface allRoute {
+  hidden: boolean;
+  name: string;
+  path: string;
+  component: any;
+  redirect: string;
+  meta: {
+    roles: Array<string>;
+    title: string;
+    icon?: string
+    breadcrumb: boolean;
+  },
+  children?: Array<any>;
+}
+
+
+export const constantRoutes: any = [
   {
+    // path: "/",
+    // name: "Home",
+    // component: Home,
+
+    hidden: false,
+    name: "Layout",
     path: "/",
-    name: "Home",
     component: Home,
   },
   {
@@ -47,6 +69,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: "/index",
     component: SystemLayout,
+    hidden: false,
     children: [
       {
         path: "",
@@ -60,11 +83,15 @@ const routes: Array<RouteRecordRaw> = [
     name: "Login",
     component: () => import(/*webpackChunkName: "Login"*/ "../views/login/index.vue"),
   },
+  {
+    path: "/404",
+    component: () => import(/* webpackChunkName: "404" */ "../views/404/index.vue"),
+  }
 ];
 
 const router = createRouter({
   history: createWebHashHistory(),
-  routes,
+  routes: constantRoutes,
 });
 
 export default router;
